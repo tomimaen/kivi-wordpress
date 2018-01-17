@@ -71,10 +71,9 @@ class Kivi_Property {
   }
   
 	private function getViPresentationsValue(){
-		$ret = "";
-		$presentations_arr = get_post_meta( $this->post_id, '_vi_presentations' );
+		$ret = $ret_list = "";
+		$presentations_arr = get_post_meta( $this->post_id, '_vi_presentations', true );
 		if( ! empty($presentations_arr) && is_array($presentations_arr) ) {
-			$ret .= "<ul class='kivi-vi-presentations'>";
 			foreach( $presentations_arr as $presentation ) {
 				$class = "";
 				if( ! empty($presentation['vi_pre_extralink_seq']) ) {
@@ -83,15 +82,18 @@ class Kivi_Property {
 				if( ! empty($presentation['vi_pre_video_flag']) ) {
 					$class .= "type-video ";
 				}
-				if( empty($presentation['vi_pre_video_flag']) && empty($presentation['vi_pre_extralink_seq'] ) ) {
+				if( empty($presentation['vi_pre_video_flag']) && empty($presentation['vi_pre_extralink_seq']) ) {
 					$class .= "type-virtual";
 				}
 				
 				if( isset($presentation['vi_pre_url']) && filter_var($presentation['vi_pre_url'], FILTER_VALIDATE_URL) ) {
-					$ret .= "<li><a href='$presentation[vi_pre_url]' target='_blank' rel='noopener' class='$class'>$presentation[vi_pre_desc]</a></li>";
+					$ret_list .= "<li><a href='$presentation[vi_pre_url]' target='_blank' rel='noopener' class='$class'>$presentation[vi_pre_desc]</a></li>";
 				}
 			}
-			$ret .= "</ul>";
+			if( ! empty($ret_list) ){
+				$ret .= "<ul class='kivi-vi-presentations'>";
+				$ret .= $ret_list."</ul>";
+			}
 		}
 		return $ret;
 	}

@@ -307,10 +307,12 @@ class Kivi_Admin {
   public function realty_vi_presentation_func( &$foo, &$result ){
     $pres = array();
     foreach ($foo->children() as $p) {
+      $i=array();
       if( $p->getName() == 'realty_vi_presentation_item'){
         foreach ($p->children() as $prop) {
-          $this->copy_func($prop, $pres);
+          $this->copy_func($prop, $i);
         }
+        array_push($pres,$i);
       }
     }
     $result['vi_presentations'] = $pres;
