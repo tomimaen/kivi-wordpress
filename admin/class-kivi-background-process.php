@@ -147,7 +147,7 @@
     * Update all the metadata in the item, in case the item has any
     * modifications.
     */
-    public function item_update_metadata($post_id, &$item){
+    public function item_update_metadata( $post_id, &$item ) {
       foreach ( $item as $key => $value ) {
         if( $key == 'images' ){
           $new_images = array_column( $item['images'], 'image_url' );
@@ -169,7 +169,13 @@
                $this->add_media( $i['image_url'], $i['image_realtyimagetype_id'], $i['image_iv_order'],  $post_id );
              }
           }
-        }else {
+        } elseif( $key == 'iv_person_image_url' && $value ) {
+			$image_changed = get_post_meta( $post_id, '_sc_image_url', $single=true ) !== $value;
+			if ( $image_changed ) {
+			  $this->kivi_save_image( $value, 'iv_person_image_url', 0, $post_id );
+			  // And delete old file here too...
+			}
+		} else {
           update_post_meta( $post_id, '_'.$key, $value );
         }
       }
@@ -274,7 +280,7 @@
           $attachment_data = wp_generate_attachment_metadata( $attachment_id, $upload_file['file'] );
           wp_update_attachment_metadata( $attachment_id,  $attachment_data );
           if( $image_type == 'iv_person_image_url'){
-            add_post_meta ( $post_id, '_kivi_iv_person_image', $attachment_id );
+            update_post_meta ( $post_id, '_kivi_iv_person_image', $attachment_id ); // single? update ok?
           }else{
             add_post_meta ( $post_id, '_kivi_item_image', $attachment_id );
           }
