@@ -100,7 +100,7 @@ else{
 
       <h1 class="kivi-index-archive-title"><?php _e("Kohdelistaus", "kivi"); ?></h1>
 
-      <form action="<?php echo get_site_url() . "/" . (get_option('kivi-slug')?get_option('kivi-slug'):"kohde");?>" method="post" class="kivi-item-filters">
+      <form action="<?php echo get_site_url() . "/" . (get_option('kivi-slug')?get_option('kivi-slug'):"kohde");?>" method="get" class="kivi-item-filters">
         <div class="kivi-item-filters-wrapper">
           <div class="kivi-filter-cell">
             <label><?php _e('Asunnon tyyppi', 'kivi'); ?>
