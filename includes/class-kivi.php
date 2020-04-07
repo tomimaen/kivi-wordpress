@@ -205,8 +205,8 @@ class Kivi {
 
     $this->loader->add_filter( 'cmb_meta_boxes', $plugin_public, 'kivi_item_metaboxes' );
     //add_action( 'init', array($this, 'map_post_meta') );
-    add_filter( 'single_template', array($this, 'load_single_kivi_template') );
-    add_filter( 'archive_template', array($this, 'load_kivi_index_template') ) ;
+    //add_filter( 'single_template', array($this, 'load_single_kivi_template') );
+    //add_filter( 'archive_template', array($this, 'load_kivi_index_template') ) ;
 
     add_filter('redirect_canonical', function ($redirect_url) {
       if (is_singular('kivi_item')){
