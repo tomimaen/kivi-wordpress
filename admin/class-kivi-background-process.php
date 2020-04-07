@@ -204,7 +204,7 @@ class Kivi_Background_Process extends WP_Background_Process
     {
         $postarr = [];
         $postarr['post_content'] = $item['presentation'];
-        $postarr['post_title'] = $item['flat_structure'] . ' ' . $item['town'] . ' ' . $item['street'];
+        $postarr['post_title'] = $item['street'] . ' ' . $item['town'];
         $postarr['ID'] = $post_id;
         wp_update_post($postarr);
     }
@@ -306,7 +306,7 @@ class Kivi_Background_Process extends WP_Background_Process
         $postarr['post_type'] = 'kivi_item';
         $postarr['post_status'] = 'draft';
         $postarr['post_content'] = $item['presentation'];
-        $postarr['post_title'] = $item['flat_structure'] . ' ' . $item['town'] . ' ' . $item['street'];
+        $postarr['post_title'] = $item['street'] . ' ' . $item['town'];
         $post_id = wp_insert_post($postarr);
         update_post_meta($post_id, '_realty_unique_no', $item['realty_unique_no']);
         foreach ($item as $key => $value) {
