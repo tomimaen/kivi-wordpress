@@ -67,11 +67,16 @@ class Kivi_Property {
 		  $e = new DateTime( $pres['presentation_end'] );
 
 		  $p = date_format($d, 'd.m.Y') . " " . date_format($s, 'H:i') . " - " . date_format($e, 'H:i') ;
+
+            if ($pres['presentation_info']) {
+                $p .= '<br />' . $pres['presentation_info'];
+            }
+
 		  return $p;
 		}
 	}
   }
-  
+
 	private function getViPresentationsValue(){
 		$ret = $ret_list = "";
 		$presentations_arr = get_post_meta( $this->post_id, '_vi_presentations', true );
@@ -87,7 +92,7 @@ class Kivi_Property {
 				if( empty($presentation['vi_pre_video_flag']) && empty($presentation['vi_pre_extralink_seq']) ) {
 					$class .= "type-virtual";
 				}
-				
+
 				if( isset($presentation['vi_pre_url']) && filter_var($presentation['vi_pre_url'], FILTER_VALIDATE_URL) ) {
 					$ret_list .= "<li><a href='$presentation[vi_pre_url]' target='_blank' rel='noopener' class='$class'>$presentation[vi_pre_desc]</a></li>";
 				}
